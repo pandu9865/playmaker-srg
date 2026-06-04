@@ -3664,19 +3664,56 @@
         }
         function downloadCSV() {
           const rows = buildAssignedRows();
+
           if (!rows.length) {
             alert("Jalankan assign dulu.");
             return;
           }
-          const a = document.createElement("a");
-          a.href = URL.createObjectURL(
-            new Blob([buildWmsCsvText(rows)], {
-              type: "text/csv;charset=utf-8",
-            }),
+
+          const byWave = {};
+
+          rows.forEach((r) => {
+            const wave =
+              String(
+                (r.so && (r.so.WAVE || r.so.wave || r.so.Wave)) || "NO WAVE",
+              ).trim() || "NO WAVE";
+
+            if (!byWave[wave]) byWave[wave] = [];
+            byWave[wave].push(r);
+          });
+
+          const waveOrderNum = (w) => {
+            const m = String(w || "").match(/\d+/);
+            return m ? Number(m[0]) : 999;
+          };
+
+          const waves = Object.keys(byWave).sort(
+            (a, b) => waveOrderNum(a) - waveOrderNum(b),
           );
-          a.download =
-            "wms_srg_" + new Date().toISOString().slice(0, 10) + ".csv";
-          a.click();
+
+          waves.forEach((wave, idx) => {
+            const csvText = buildWmsCsvText(byWave[wave]);
+            const safeWave = wave
+              .toLowerCase()
+              .replace(/\s+/g, "_")
+              .replace(/[^a-z0-9_]+/g, "");
+
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(
+              new Blob([csvText], { type: "text/csv;charset=utf-8" }),
+            );
+            a.download = `wms_srg_${safeWave}_${new Date().toISOString().slice(0, 10)}.csv`;
+
+            setTimeout(() => {
+              a.click();
+              URL.revokeObjectURL(a.href);
+            }, idx * 250);
+          });
+
+          addLog(
+            `CSV split by wave downloaded: ${waves.length} file · ${rows.length} SO`,
+            "ok",
+          );
         }
         function addLog(message, type = "info") {
           const box = document.getElementById("live-log");
