@@ -3031,32 +3031,22 @@
         function extractWmsSoId(s) {
           return String(s || "")
             .replace(/\D/g, "")
-            .slice(-6);
+            .slice(-7);
         }
-        function csvEscape(v) {
-          const s = String(v ?? "");
-          return `"${s.replace(/"/g, '""')}`;
-        }
-        function buildAssignedRows() {
-          const rows = [];
-          Object.values(assignResult).forEach((d) => {
-            const sid = getPickerStaffId(d.picker);
-            d.soList.forEach((s) =>
-              rows.push({ picker: d.picker, staff_id: sid, so: s }),
-            );
-          });
-          return rows;
-        }
-        function buildSOCopyText(rows) {
-          return rows.map((x) => x.so.so_number).join("\n");
-        }
-        function buildUploadCopyText(rows) {
-          const out = ["error_message\tso_id\tstaff_id"];
+
+        function buildWmsCsvText(rows) {
+          const out = ["error_message;so_id;staff_id"];
+
           rows.forEach((x) => {
             out.push(
-              ["", extractWmsSoId(x.so.so_number), x.staff_id || ""].join("\t"),
+              [
+                csvEscape(""),
+                csvEscape(extractWmsSoId(x.so.so_number)),
+                csvEscape(x.staff_id || ""),
+              ].join(";"),
             );
           });
+
           return out.join("\n");
         }
         function buildWmsCsvText(rows) {
