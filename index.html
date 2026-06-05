@@ -3029,14 +3029,41 @@
           );
         }
         function extractWmsSoId(s) {
-          const digits = String(s || "").replace(/\D/g, "");
-          return digits.slice(-7).padStart(7, "0");
+          return String(s || "")
+            .replace(/\D/g, "")
+            .slice(-7)
+            .padStart(7, "0");
         }
 
         function csvEscape(v) {
           const s = String(v ?? "");
-          if (/[;"\n\r]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
+          if (/[;"\r\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
           return s;
+        }
+
+        function buildAssignedRows() {
+          const rows = [];
+          Object.values(assignResult).forEach((d) => {
+            const sid = getPickerStaffId(d.picker);
+            d.soList.forEach((s) =>
+              rows.push({ picker: d.picker, staff_id: sid, so: s }),
+            );
+          });
+          return rows;
+        }
+
+        function buildSOCopyText(rows) {
+          return rows.map((x) => x.so.so_number).join("\n");
+        }
+
+        function buildUploadCopyText(rows) {
+          const out = ["error_message;so_id;staff_id"];
+          rows.forEach((x) => {
+            out.push(
+              ["", extractWmsSoId(x.so.so_number), x.staff_id || ""].join(";"),
+            );
+          });
+          return out.join("\n");
         }
 
         function buildWmsCsvText(rows) {
@@ -3048,29 +3075,6 @@
                 csvEscape(""),
                 csvEscape(extractWmsSoId(x.so.so_number)),
                 csvEscape(x.staff_id || ""),
-              ].join(";"),
-            );
-          });
-
-          return out.join("\n");
-        }
-
-        function buildUploadCopyText(rows) {
-          return buildWmsCsvText(rows);
-        }
-
-        function buildSOCopyText(rows) {
-          const out = ["so_number;so_id;staff_id;picker;wave;request_quantity"];
-
-          rows.forEach((x) => {
-            out.push(
-              [
-                csvEscape(x.so.so_number || ""),
-                csvEscape(extractWmsSoId(x.so.so_number)),
-                csvEscape(x.staff_id || ""),
-                csvEscape(x.picker || ""),
-                csvEscape(x.so.WAVE || x.so.wave || ""),
-                csvEscape(x.so.request_quantity || 0),
               ].join(";"),
             );
           });
@@ -3667,6 +3671,21 @@
             })
             .join("");
         }
+        function downloadBlobFile(text, filename) {
+          const blob = new Blob([text], { type: "text/csv;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename;
+          a.style.display = "none";
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            URL.revokeObjectURL(url);
+            a.remove();
+          }, 3000);
+        }
+
         function downloadCSV() {
           const rows = buildAssignedRows();
 
@@ -3696,23 +3715,17 @@
             (a, b) => waveOrderNum(a) - waveOrderNum(b),
           );
 
-          waves.forEach((wave, idx) => {
+          waves.forEach((wave) => {
             const csvText = buildWmsCsvText(byWave[wave]);
             const safeWave = wave
               .toLowerCase()
               .replace(/\s+/g, "_")
               .replace(/[^a-z0-9_]+/g, "");
 
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(
-              new Blob([csvText], { type: "text/csv;charset=utf-8" }),
+            downloadBlobFile(
+              csvText,
+              `wms_srg_${safeWave}_${new Date().toISOString().slice(0, 10)}.csv`,
             );
-            a.download = `wms_srg_${safeWave}_${new Date().toISOString().slice(0, 10)}.csv`;
-
-            setTimeout(() => {
-              a.click();
-              URL.revokeObjectURL(a.href);
-            }, idx * 250);
           });
 
           addLog(
