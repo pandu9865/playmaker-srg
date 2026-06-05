@@ -818,7 +818,7 @@
       }
       .kpi-row {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(7, 1fr);
         gap: 10px;
       }
       .kpi {
@@ -2273,6 +2273,21 @@
                   0%
                 </div>
                 <div class="kpi-sub">inc / req picked</div>
+                <div class="kpi">
+                  <div class="kpi-label">Incoming Qty</div>
+                  <div class="kpi-val" id="d-inc">0</div>
+                  <div class="kpi-sub">total incoming qty</div>
+                </div>
+                <div
+                  class="kpi"
+                  style="border-color: #fca5a5; background: var(--red-dim)"
+                >
+                  <div class="kpi-label">Gap</div>
+                  <div class="kpi-val" id="d-gap" style="color: var(--red)">
+                    0
+                  </div>
+                  <div class="kpi-sub">req - incoming qty</div>
+                </div>
               </div>
             </div>
             <div class="charts-row">
@@ -4158,8 +4173,13 @@
           document.getElementById("d-so").innerText = dd.length;
           document.getElementById("d-prog").innerText =
             (tq ? Math.round((pq / tq) * 100) : 0) + "%";
-          document.getElementById("d-fr").innerText =
-            (tq ? ((iq / tq) * 100).toFixed(1) : "0.0") + "%";
+          document.getElementById("d-fr").innerText = document.getElementById(
+            "d-inc",
+          ).innerText = iq.toLocaleString("id-ID");
+          document.getElementById("d-gap").innerText = (tq - iq).toLocaleString(
+            "id-ID",
+          );
+          (tq ? ((iq / tq) * 100).toFixed(1) : "0.0") + "%";
           document.getElementById("d-kepala").innerText =
             tc.Kepala.toLocaleString("id-ID");
           document.getElementById("d-badan").innerText =
