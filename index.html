@@ -1145,6 +1145,182 @@
         font-weight: 700;
         cursor: pointer;
       }
+
+      /* ===== DASHBOARD STATUS MONITOR ===== */
+      .status-monitor-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px;
+        box-shadow: 0 4px 10px #0f172a0a;
+      }
+      .status-monitor-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .status-monitor-title {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--text);
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .status-monitor-sub {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--text3);
+        margin-top: 2px;
+        line-height: 1.45;
+      }
+      .status-mini-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      @media (max-width: 1200px) {
+        .status-mini-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .status-mini-card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 12px;
+        background: var(--bg3);
+      }
+      .status-mini-label {
+        font-family: var(--mono);
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text3);
+        margin-bottom: 4px;
+      }
+      .status-mini-val {
+        font-family: var(--mono);
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--text);
+        line-height: 1.1;
+      }
+      .status-mini-sub {
+        font-size: 10px;
+        color: var(--text2);
+        margin-top: 2px;
+      }
+      .status-monitor-wrap {
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg2);
+      }
+      .status-monitor-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        min-width: 760px;
+      }
+      .status-monitor-table th {
+        background: var(--bg3);
+        color: var(--text3);
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+      .status-monitor-table td {
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: middle;
+      }
+      .status-monitor-table tr:hover td {
+        background: var(--blue-dim) !important;
+      }
+      .status-name-btn {
+        border: none;
+        background: transparent;
+        color: var(--blue);
+        font-family: var(--mono);
+        font-weight: 800;
+        font-size: 11px;
+        cursor: pointer;
+        padding: 0;
+        text-align: left;
+      }
+      .status-name-btn:hover {
+        text-decoration: underline;
+      }
+      .status-bar-bg {
+        width: 100%;
+        height: 7px;
+        background: var(--bg4);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .status-bar-fg {
+        height: 7px;
+        background: var(--blue);
+        border-radius: 999px;
+      }
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--bg3);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .hourly-summary-row {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      @media (max-width: 1400px) {
+        .hourly-summary-row {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .hourly-summary-card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 12px;
+        background: var(--bg3);
+      }
+      .hourly-summary-label {
+        font-family: var(--mono);
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text3);
+        margin-bottom: 4px;
+      }
+      .hourly-summary-val {
+        font-family: var(--mono);
+        font-size: 19px;
+        font-weight: 900;
+        color: var(--text);
+        line-height: 1.1;
+      }
+      .hourly-summary-sub {
+        font-size: 10px;
+        color: var(--text2);
+        margin-top: 2px;
+      }
       .hourly-card {
         background: var(--bg2);
         border: 1px solid var(--border);
@@ -1872,6 +2048,70 @@
                 <div class="chart-wrap"><canvas id="c-remarks"></canvas></div>
               </div>
             </div>
+            <div class="status-monitor-card">
+              <div class="status-monitor-head">
+                <div>
+                  <div class="status-monitor-title">
+                    Monitoring SO per Status
+                  </div>
+                  <div class="status-monitor-sub" id="status-monitor-sub">
+                    Total SO & qty by current dashboard filter
+                  </div>
+                </div>
+                <button
+                  class="btn-ghost"
+                  onclick="setDashboardStatusFilter('')"
+                >
+                  Show All Status
+                </button>
+              </div>
+              <div class="status-mini-row">
+                <div class="status-mini-card">
+                  <div class="status-mini-label">Open SO</div>
+                  <div class="status-mini-val" id="sm-open-so">0</div>
+                  <div class="status-mini-sub">NEW + WH process</div>
+                </div>
+                <div class="status-mini-card">
+                  <div class="status-mini-label">Open Qty</div>
+                  <div class="status-mini-val" id="sm-open-qty">0</div>
+                  <div class="status-mini-sub">request qty open</div>
+                </div>
+                <div class="status-mini-card">
+                  <div class="status-mini-label">Closed SO</div>
+                  <div class="status-mini-val" id="sm-closed-so">0</div>
+                  <div class="status-mini-sub">completed / delivered</div>
+                </div>
+                <div class="status-mini-card">
+                  <div class="status-mini-label">Closed Qty</div>
+                  <div class="status-mini-val" id="sm-closed-qty">0</div>
+                  <div class="status-mini-sub">request qty closed</div>
+                </div>
+              </div>
+              <div class="status-monitor-wrap">
+                <table class="status-monitor-table">
+                  <thead>
+                    <tr>
+                      <th>Status</th>
+                      <th style="text-align: right">Total SO</th>
+                      <th style="text-align: right">Total Qty</th>
+                      <th style="text-align: right">% SO</th>
+                      <th style="width: 240px">Share</th>
+                      <th style="text-align: right">Avg Qty/SO</th>
+                    </tr>
+                  </thead>
+                  <tbody id="status-monitor-body">
+                    <tr>
+                      <td
+                        colspan="6"
+                        style="text-align: center; color: var(--text3)"
+                      >
+                        Belum ada data status.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
             <div class="tactical-row">
               <div class="tactical-card">
                 <div class="tactical-label">Zona Terberat</div>
@@ -1957,6 +2197,38 @@
                   <button class="btn-ghost" onclick="loadHourlyReport()">
                     Refresh Report
                   </button>
+                </div>
+              </div>
+              <div class="hourly-summary-row" id="hourly-summary-row">
+                <div class="hourly-summary-card">
+                  <div class="hourly-summary-label">Picker</div>
+                  <div class="hourly-summary-val" id="hs-picker">0</div>
+                  <div class="hourly-summary-sub">active rows</div>
+                </div>
+                <div class="hourly-summary-card">
+                  <div class="hourly-summary-label">Total Qty</div>
+                  <div class="hourly-summary-val" id="hs-qty">0</div>
+                  <div class="hourly-summary-sub">picked today</div>
+                </div>
+                <div class="hourly-summary-card">
+                  <div class="hourly-summary-label">Avg / Picker</div>
+                  <div class="hourly-summary-val" id="hs-avg-picker">0</div>
+                  <div class="hourly-summary-sub">qty per picker</div>
+                </div>
+                <div class="hourly-summary-card">
+                  <div class="hourly-summary-label">Achieved</div>
+                  <div class="hourly-summary-val" id="hs-achieved">0</div>
+                  <div class="hourly-summary-sub">picker ≥ target</div>
+                </div>
+                <div class="hourly-summary-card">
+                  <div class="hourly-summary-label">Below</div>
+                  <div class="hourly-summary-val" id="hs-below">0</div>
+                  <div class="hourly-summary-sub">picker below target</div>
+                </div>
+                <div class="hourly-summary-card">
+                  <div class="hourly-summary-label">Zero Output</div>
+                  <div class="hourly-summary-val" id="hs-zero">0</div>
+                  <div class="hourly-summary-sub">picker 0 qty</div>
                 </div>
               </div>
               <div class="hourly-legend">
@@ -2537,6 +2809,18 @@
             ...new Set(soData.map((s) => s.picking_zone).filter(Boolean)),
           ].sort();
           setSelectOptions("dash-zone", "Zone semua", zones);
+          const statuses = [
+            ...new Set(
+              soData
+                .map((s) =>
+                  String(s.status || "NEW")
+                    .toUpperCase()
+                    .trim(),
+                )
+                .filter(Boolean),
+            ),
+          ].sort((a, b) => statusSortRank(a) - statusSortRank(b));
+          setSelectOptions("dash-status", "Status semua", statuses);
           dashboardFiltersReady = true;
         }
         function resetDashboardFilters() {
@@ -3367,6 +3651,153 @@
             })
             .join("");
         }
+
+        function statusSortRank(status) {
+          const order = {
+            NEW: 1,
+            PICKING: 2,
+            PACKING: 3,
+            STAGING: 4,
+            LOADING: 5,
+            "READY TO SHIP": 6,
+            "IN PROGRESS": 7,
+            "ON DELIVERY": 8,
+            COMPLETED: 9,
+            DELIVERED: 10,
+            CANCELLED: 98,
+            CANCELED: 98,
+          };
+          return (
+            order[
+              String(status || "")
+                .toUpperCase()
+                .trim()
+            ] || 50
+          );
+        }
+        function isClosedSOStatus(status) {
+          const st = String(status || "")
+            .toUpperCase()
+            .trim();
+          return [
+            "COMPLETED",
+            "DELIVERED",
+            "ON DELIVERY",
+            "CANCELLED",
+            "CANCELED",
+          ].includes(st);
+        }
+        function setDashboardStatusFilter(status) {
+          const el = document.getElementById("dash-status");
+          if (el) el.value = status || "";
+          renderDashboard();
+        }
+        function renderStatusMonitoring(rows) {
+          const body = document.getElementById("status-monitor-body");
+          const sub = document.getElementById("status-monitor-sub");
+          if (!body) return;
+          const data = Array.isArray(rows) ? rows : [];
+          const totalSO = data.length;
+          const totalQty = data.reduce(
+            (sum, s) => sum + Number(s.request_quantity || 0),
+            0,
+          );
+          const bucket = {};
+          let openSO = 0,
+            openQty = 0,
+            closedSO = 0,
+            closedQty = 0;
+          data.forEach((s) => {
+            const st =
+              String(s.status || "NEW")
+                .toUpperCase()
+                .trim() || "NEW";
+            const req = Number(s.request_quantity || 0);
+            if (!bucket[st]) bucket[st] = { so: 0, qty: 0 };
+            bucket[st].so++;
+            bucket[st].qty += req;
+            if (isClosedSOStatus(st)) {
+              closedSO++;
+              closedQty += req;
+            } else {
+              openSO++;
+              openQty += req;
+            }
+          });
+          const setText = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val;
+          };
+          setText("sm-open-so", openSO.toLocaleString("id-ID"));
+          setText("sm-open-qty", openQty.toLocaleString("id-ID"));
+          setText("sm-closed-so", closedSO.toLocaleString("id-ID"));
+          setText("sm-closed-qty", closedQty.toLocaleString("id-ID"));
+          if (sub)
+            sub.textContent = `${totalSO.toLocaleString("id-ID")} SO · ${totalQty.toLocaleString("id-ID")} qty dari filter dashboard aktif`;
+          const entries = Object.keys(bucket).sort(
+            (a, b) => statusSortRank(a) - statusSortRank(b),
+          );
+          if (!entries.length) {
+            body.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text3)">Tidak ada data status untuk filter ini.</td></tr>`;
+            return;
+          }
+          body.innerHTML = entries
+            .map((st) => {
+              const d = bucket[st];
+              const pct = totalSO ? (d.so / totalSO) * 100 : 0;
+              const avg = d.so ? Math.round(d.qty / d.so) : 0;
+              return `<tr>
+                <td><button class="status-name-btn" onclick="setDashboardStatusFilter('${escAttr(st)}')">${esc(st)}</button></td>
+                <td class="mono" style="text-align:right;font-weight:800;color:var(--text)">${d.so.toLocaleString("id-ID")}</td>
+                <td class="mono" style="text-align:right;font-weight:800;color:var(--green)">${d.qty.toLocaleString("id-ID")}</td>
+                <td class="mono" style="text-align:right">${pct.toFixed(1)}%</td>
+                <td><div class="status-bar-bg"><div class="status-bar-fg" style="width:${Math.max(2, pct).toFixed(1)}%"></div></div></td>
+                <td class="mono" style="text-align:right">${avg.toLocaleString("id-ID")}</td>
+              </tr>`;
+            })
+            .join("");
+        }
+        function renderHourlySummary(rows, hours, targetPerHour) {
+          const data = Array.isArray(rows) ? rows : [];
+          const hrs = Array.isArray(hours) ? hours : [];
+          const tgt = Number(targetPerHour || 0);
+          const totalTarget = tgt * hrs.length;
+          let totalQty = 0,
+            achieved = 0,
+            below = 0,
+            zero = 0;
+          data.forEach((r) => {
+            const total = hourReportNum(r.total);
+            totalQty += total;
+            if (total <= 0) zero++;
+            else if (totalTarget > 0 && total >= totalTarget) achieved++;
+            else below++;
+          });
+          const setText = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val;
+          };
+          setText("hs-picker", data.length.toLocaleString("id-ID"));
+          setText("hs-qty", totalQty.toLocaleString("id-ID"));
+          setText(
+            "hs-avg-picker",
+            (data.length
+              ? Math.round(totalQty / data.length)
+              : 0
+            ).toLocaleString("id-ID"),
+          );
+          setText("hs-achieved", achieved.toLocaleString("id-ID"));
+          setText("hs-below", below.toLocaleString("id-ID"));
+          setText("hs-zero", zero.toLocaleString("id-ID"));
+        }
+        function escAttr(v) {
+          return String(v ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/'/g, "&#39;")
+            .replace(/"/g, "&quot;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
         function renderDashboard() {
           if (!soData.length) return;
           if (!dashboardFiltersReady) populateDashboardFilters();
@@ -3382,10 +3813,18 @@
               "d-kepala",
               "d-badan",
               "d-ekor",
+              "d-risk-zone",
+              "d-risk-zone-sub",
+              "d-avg-sku",
+              "d-avg-qty",
             ].forEach((id) => {
               const el = document.getElementById(id);
-              if (el) el.innerText = "0";
+              if (el) el.innerText = id === "d-risk-zone" ? "-" : "0";
             });
+            renderStatusMonitoring([]);
+            const pb = document.getElementById("picker-tbody");
+            if (pb)
+              pb.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text3)">Tidak ada data sesuai filter</td></tr>`;
             return;
           }
           let tq = 0,
@@ -3456,6 +3895,7 @@
             (dd.length ? Math.round(tq / dd.length) : 0).toLocaleString(
               "id-ID",
             ) + " avg qty/SO";
+          renderStatusMonitoring(dd);
           const wl = Object.keys(wso).filter((w) => wso[w] > 0 || wqty[w] > 0);
           buildChart(
             "c-wave-so",
@@ -3613,12 +4053,14 @@
           const sub = document.getElementById("hourly-sub");
           if (!head || !body) return;
           if (!hourlyReportData) {
+            renderHourlySummary([], [], 0);
             head.innerHTML = "<tr><th>Hourly SRG</th></tr>";
             body.innerHTML =
               '<tr><td class="hour-empty">Report belum dimuat.</td></tr>';
             return;
           }
           if (hourlyReportData.status !== "success") {
+            renderHourlySummary([], [], 0);
             head.innerHTML = "<tr><th>Hourly SRG</th></tr>";
             body.innerHTML = `<tr><td class="hour-empty">${esc(hourlyReportData.error || "Gagal load.")}</td></tr>`;
             return;
@@ -3638,6 +4080,7 @@
             document.getElementById("hourly-target")?.value || 325,
           );
           const ttgt = tgt * hours.length;
+          renderHourlySummary(rows, hours, tgt);
           if (sub)
             sub.textContent =
               "Source: " +
