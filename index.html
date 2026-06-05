@@ -2404,6 +2404,9 @@
               >
                 Summary Picker
               </div>
+              Summary Picker
+              </div>
+              <input type="text" id="picker-summary-search" placeholder="Cari nama picker..." oninput="filterPickerSummary()" style="padding:6px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:11px;font-family:var(--mono);outline:none;width:220px">
               <div style="overflow-x: auto">
                 <table>
                   <thead>
@@ -4368,6 +4371,28 @@
         }
 
         function showPickerProgressDetail(key) {
+          function statusClass(status) {
+            const s = String(status || "")
+              .toUpperCase()
+              .trim();
+            if (s === "NEW") return "s-new";
+            if (s === "PICKING") return "s-prog";
+            if (["PACKING", "STAGING", "LOADING"].includes(s)) return "s-done";
+            if (s === "READY TO SHIP") return "s-del";
+            return "s-oth";
+          }
+
+          function filterPickerSummary() {
+            const q = String(
+              document.getElementById("picker-summary-search")?.value || "",
+            )
+              .toLowerCase()
+              .trim();
+            document.querySelectorAll("#picker-tbody tr").forEach((tr) => {
+              tr.style.display =
+                !q || tr.textContent.toLowerCase().includes(q) ? "" : "none";
+            });
+          }
           key = decodeURIComponent(String(key || ""));
           const d = (pickerProgressRows || []).find((x) => x.key === key);
           if (!d) return;
