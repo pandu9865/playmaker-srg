@@ -1534,6 +1534,253 @@
         font-size: 11px;
         background: var(--bg3) !important;
       }
+
+      /* =========================================================
+         PICKER PROGRESS CONTROL — generated from SO data
+         ========================================================= */
+      .picker-progress-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+      }
+      .picker-progress-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .picker-progress-title {
+        font-size: 12px;
+        font-weight: 900;
+        color: var(--text);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .picker-progress-sub {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--text3);
+        margin-top: 2px;
+        line-height: 1.45;
+      }
+      .picker-progress-tools {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .picker-progress-tools input,
+      .picker-progress-tools select {
+        padding: 7px 10px;
+        background: var(--bg3);
+        border: 1px solid var(--border2);
+        border-radius: 8px;
+        color: var(--text);
+        font-size: 11px;
+        font-family: var(--mono);
+        outline: none;
+      }
+      .picker-progress-wrap {
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--bg2);
+      }
+      .picker-progress-table {
+        min-width: 1180px;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .picker-progress-table th {
+        background: var(--bg3);
+        color: var(--text3);
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 9px 10px;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+      .picker-progress-table td {
+        padding: 9px 10px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: middle;
+      }
+      .picker-progress-table tr:hover td {
+        background: var(--blue-dim) !important;
+      }
+      .pp-name {
+        font-weight: 800;
+        color: var(--text);
+      }
+      .pp-staff {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--text3);
+        margin-top: 1px;
+      }
+      .pp-num {
+        font-family: var(--mono);
+        text-align: right;
+        font-weight: 800;
+      }
+      .pp-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 28px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 900;
+        border: 1px solid transparent;
+      }
+      .pp-badge.assigned {
+        background: var(--blue-light);
+        color: #1d4ed8;
+        border-color: #93c5fd;
+      }
+      .pp-badge.picking {
+        background: var(--amber-light);
+        color: #92400e;
+        border-color: #fcd34d;
+      }
+      .pp-badge.done {
+        background: var(--green-light);
+        color: #15803d;
+        border-color: #86efac;
+      }
+      .pp-badge.remaining {
+        background: var(--red-light);
+        color: #b91c1c;
+        border-color: #fca5a5;
+      }
+      .pp-progress {
+        min-width: 150px;
+      }
+      .pp-progress-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 900;
+        margin-bottom: 5px;
+      }
+      .pp-bar {
+        height: 7px;
+        border-radius: 999px;
+        background: var(--bg4);
+        overflow: hidden;
+      }
+      .pp-bar-fill {
+        height: 7px;
+        border-radius: 999px;
+        transition: width 0.4s ease;
+      }
+      .pp-good {
+        background: var(--green);
+      }
+      .pp-watch {
+        background: var(--amber);
+      }
+      .pp-bad {
+        background: var(--red);
+      }
+      .pp-action {
+        padding: 5px 10px;
+        border-radius: 7px;
+        border: 1px solid var(--border2);
+        background: var(--bg3);
+        color: var(--text2);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .pp-action:hover {
+        background: var(--blue-light);
+        border-color: #93c5fd;
+        color: var(--blue);
+      }
+      .detail-modal {
+        background: var(--bg2);
+        border-radius: 12px;
+        max-width: 1080px;
+        width: 94%;
+        max-height: 86vh;
+        box-shadow: 0 20px 60px #0003;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .detail-modal-head {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .detail-modal-title {
+        font-weight: 800;
+        font-size: 15px;
+      }
+      .detail-modal-sub {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--text2);
+        margin-top: 2px;
+      }
+      .detail-modal-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .detail-modal-body {
+        padding: 12px 18px 18px;
+        overflow: auto;
+      }
+      .pp-detail-list {
+        max-height: 58vh;
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--bg2);
+      }
+      .pp-detail-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        min-width: 760px;
+      }
+      .pp-detail-table th {
+        background: var(--bg3);
+        color: var(--text3);
+        font-family: var(--mono);
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+      }
+      .pp-detail-table td {
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+      }
+
       ::-webkit-scrollbar {
         width: 5px;
         height: 5px;
@@ -2174,96 +2421,63 @@
                 </table>
               </div>
             </div>
-            <div class="hourly-card">
-              <div class="hourly-head">
+            <div class="picker-progress-card">
+              <div class="picker-progress-head">
                 <div>
-                  <div class="hourly-title">
-                    Hourly Productivity Picker Report
+                  <div class="picker-progress-title">
+                    🎮 Picker Progress Control
                   </div>
-                  <div class="hourly-sub" id="hourly-sub">
-                    Source: Google Sheets REPORT · SRG
+                  <div class="picker-progress-sub">
+                    Monitoring assigned SO, sedang dikerjain, selesai, dan
+                    remaining per picker. Rule: hanya status PICKING yang
+                    dihitung remaining; selain PICKING = done picking.
                   </div>
                 </div>
-                <div class="hourly-tools">
-                  <span>Target / hour</span>
+                <div class="picker-progress-tools">
                   <input
-                    id="hourly-target"
-                    type="number"
-                    value="325"
-                    min="0"
-                    step="25"
-                    onchange="renderHourlyReport()"
+                    id="picker-progress-search"
+                    type="text"
+                    placeholder="Cari picker / staff ID..."
+                    oninput="renderPickerProgressControl()"
                   />
-                  <button class="btn-ghost" onclick="loadHourlyReport()">
-                    Refresh Report
-                  </button>
+                  <select
+                    id="picker-progress-filter"
+                    onchange="renderPickerProgressControl()"
+                  >
+                    <option value="">Semua progress</option>
+                    <option value="remaining">Masih ada remaining</option>
+                    <option value="picking">Sedang picking</option>
+                    <option value="done">Sudah selesai semua</option>
+                  </select>
                 </div>
               </div>
-              <div class="hourly-summary-row" id="hourly-summary-row">
-                <div class="hourly-summary-card">
-                  <div class="hourly-summary-label">Picker</div>
-                  <div class="hourly-summary-val" id="hs-picker">0</div>
-                  <div class="hourly-summary-sub">active rows</div>
-                </div>
-                <div class="hourly-summary-card">
-                  <div class="hourly-summary-label">Total Qty</div>
-                  <div class="hourly-summary-val" id="hs-qty">0</div>
-                  <div class="hourly-summary-sub">picked today</div>
-                </div>
-                <div class="hourly-summary-card">
-                  <div class="hourly-summary-label">Avg / Picker</div>
-                  <div class="hourly-summary-val" id="hs-avg-picker">0</div>
-                  <div class="hourly-summary-sub">qty per picker</div>
-                </div>
-                <div class="hourly-summary-card">
-                  <div class="hourly-summary-label">Achieved</div>
-                  <div class="hourly-summary-val" id="hs-achieved">0</div>
-                  <div class="hourly-summary-sub">picker ≥ target</div>
-                </div>
-                <div class="hourly-summary-card">
-                  <div class="hourly-summary-label">Below</div>
-                  <div class="hourly-summary-val" id="hs-below">0</div>
-                  <div class="hourly-summary-sub">picker below target</div>
-                </div>
-                <div class="hourly-summary-card">
-                  <div class="hourly-summary-label">Zero Output</div>
-                  <div class="hourly-summary-val" id="hs-zero">0</div>
-                  <div class="hourly-summary-sub">picker 0 qty</div>
-                </div>
-              </div>
-              <div class="hourly-legend">
-                <span class="hourly-leg"
-                  ><span
-                    class="hourly-leg-dot"
-                    style="background: #dcfce7; border: 1px solid #22c55e"
-                  ></span>
-                  ≥ target</span
-                >
-                <span class="hourly-leg"
-                  ><span
-                    class="hourly-leg-dot"
-                    style="background: #fef3c7; border: 1px solid #f59e0b"
-                  ></span>
-                  below target</span
-                >
-                <span class="hourly-leg"
-                  ><span
-                    class="hourly-leg-dot"
-                    style="background: #fecaca; border: 1px solid #ef4444"
-                  ></span>
-                  zero output</span
-                >
-              </div>
-              <div class="hourly-wrap">
-                <table class="hourly-table">
-                  <thead id="hourly-report-head">
+              <div class="picker-progress-wrap">
+                <table class="picker-progress-table">
+                  <thead>
                     <tr>
-                      <th>Loading...</th>
+                      <th>Picker</th>
+                      <th style="text-align: right">Assigned SO</th>
+                      <th style="text-align: right">Picking</th>
+                      <th style="text-align: right">Done</th>
+                      <th style="text-align: right">Remaining SO</th>
+                      <th style="text-align: right">Assigned Qty</th>
+                      <th style="text-align: right">Remaining Qty</th>
+                      <th>Progress</th>
+                      <th>Detail</th>
                     </tr>
                   </thead>
-                  <tbody id="hourly-report-body">
+                  <tbody id="picker-progress-tbody">
                     <tr>
-                      <td class="hour-empty">Hourly report belum sync.</td>
+                      <td
+                        colspan="9"
+                        style="
+                          text-align: center;
+                          color: var(--text3);
+                          padding: 18px;
+                        "
+                      >
+                        Belum ada data picker.
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -2294,6 +2508,54 @@
             <button class="btn-confirm" onclick="runAssign()">
               Ya, Assign
             </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-bg" id="picker-progress-modal">
+        <div class="detail-modal">
+          <div class="detail-modal-head">
+            <div>
+              <div class="detail-modal-title" id="pp-modal-title">
+                Remaining SO
+              </div>
+              <div class="detail-modal-sub" id="pp-modal-sub">-</div>
+            </div>
+            <div class="detail-modal-actions">
+              <button class="btn-cancel" onclick="closePickerProgressModal()">
+                Tutup
+              </button>
+            </div>
+          </div>
+          <div class="detail-modal-body">
+            <div class="pp-detail-list">
+              <table class="pp-detail-table">
+                <thead>
+                  <tr>
+                    <th>SO Number</th>
+                    <th>Destination</th>
+                    <th>Wave</th>
+                    <th>Zone</th>
+                    <th>Status</th>
+                    <th style="text-align: right">Qty</th>
+                  </tr>
+                </thead>
+                <tbody id="pp-modal-tbody">
+                  <tr>
+                    <td
+                      colspan="6"
+                      style="
+                        text-align: center;
+                        color: var(--text3);
+                        padding: 18px;
+                      "
+                    >
+                      Belum ada data.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -2422,6 +2684,7 @@
           charts = {},
           dashboardFiltersReady = false,
           hourlyReportData = null,
+          pickerProgressRows = [],
           filterStateReady = { wave: false, type: false };
         function esc(s) {
           if (!s) return "";
@@ -2767,7 +3030,7 @@
             updateFilterCount();
             renderTable();
             renderDashboard();
-            loadHourlyReport();
+            renderPickerProgressControl(getDashboardFilteredData());
             dot.className = "dot ok";
             txt.innerText =
               "Online: " +
@@ -3822,6 +4085,7 @@
               if (el) el.innerText = id === "d-risk-zone" ? "-" : "0";
             });
             renderStatusMonitoring([]);
+            renderPickerProgressControl([]);
             const pb = document.getElementById("picker-tbody");
             if (pb)
               pb.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text3)">Tidak ada data sesuai filter</td></tr>`;
@@ -3960,6 +4224,7 @@
               })
               .join("");
           }
+          renderPickerProgressControl(dd);
           addLog(
             "Dashboard SRG rendered · " +
               dd.length +
@@ -3969,6 +4234,184 @@
             "info",
           );
         }
+
+        function pickerStatusBucket(status) {
+          const st = String(status || "")
+            .trim()
+            .toUpperCase();
+          if (st === "PICKING") return "picking";
+          return "done";
+        }
+
+        function getPickerProgressRows(rows) {
+          const src = Array.isArray(rows) ? rows : getDashboardFilteredData();
+          const map = new Map();
+          src.forEach((s) => {
+            const picker = String(s.Picker || s.picker || "").trim();
+            if (!picker) return;
+            const staffId = String(
+              s.staff_id || s.StaffID || s["Staff ID"] || "",
+            ).trim();
+            const key = (staffId ? staffId : "NOID") + "__" + picker;
+            const status = String(s.status || "NEW")
+              .trim()
+              .toUpperCase();
+            const bucket = pickerStatusBucket(status);
+            const req = Number(s.request_quantity || 0) || 0;
+            if (!map.has(key)) {
+              map.set(key, {
+                key,
+                picker,
+                staff_id: staffId,
+                assigned_so: 0,
+                picking_so: 0,
+                done_so: 0,
+                remaining_so: 0,
+                assigned_qty: 0,
+                done_qty: 0,
+                remaining_qty: 0,
+                progress_pct: 0,
+                remaining_list: [],
+              });
+            }
+            const d = map.get(key);
+            d.assigned_so++;
+            d.assigned_qty += req;
+            if (bucket === "picking") {
+              d.picking_so++;
+              d.remaining_list.push(s);
+            } else {
+              d.done_so++;
+              d.done_qty += req;
+            }
+          });
+          pickerProgressRows = [...map.values()]
+            .map((d) => {
+              d.remaining_so = d.picking_so;
+              d.remaining_qty = (d.remaining_list || []).reduce(
+                (a, s) => a + (Number(s.request_quantity || 0) || 0),
+                0,
+              );
+              d.progress_pct = d.assigned_so
+                ? Math.round((d.done_so / d.assigned_so) * 1000) / 10
+                : 0;
+              return d;
+            })
+            .sort(
+              (a, b) =>
+                b.remaining_so - a.remaining_so ||
+                b.assigned_qty - a.assigned_qty,
+            );
+          return pickerProgressRows;
+        }
+
+        function renderPickerProgressControl(rows) {
+          const tbody = document.getElementById("picker-progress-tbody");
+          if (!tbody) return;
+          const data = getPickerProgressRows(rows);
+          const q = String(
+            document.getElementById("picker-progress-search")?.value || "",
+          )
+            .toLowerCase()
+            .trim();
+          const filter = String(
+            document.getElementById("picker-progress-filter")?.value || "",
+          ).trim();
+          const filtered = data.filter((d) => {
+            const match =
+              !q ||
+              String(d.picker || "")
+                .toLowerCase()
+                .includes(q) ||
+              String(d.staff_id || "")
+                .toLowerCase()
+                .includes(q);
+            const fmatch =
+              !filter ||
+              (filter === "remaining" && d.remaining_so > 0) ||
+              (filter === "picking" && d.picking_so > 0) ||
+              (filter === "done" && d.assigned_so > 0 && d.remaining_so === 0);
+            return match && fmatch;
+          });
+          if (!filtered.length) {
+            tbody.innerHTML =
+              '<tr><td colspan="9" style="text-align:center;color:var(--text3);padding:18px">Tidak ada data progress picker sesuai filter.</td></tr>';
+            return;
+          }
+          tbody.innerHTML = filtered
+            .map((d) => {
+              const pct = Number(d.progress_pct || 0);
+              const barClass =
+                pct >= 80 ? "pp-good" : pct >= 50 ? "pp-watch" : "pp-bad";
+              const remBadge = d.remaining_so > 0 ? "remaining" : "done";
+              return `<tr>
+                <td>
+                  <div class="pp-name">${esc(d.picker)}</div>
+                  <div class="pp-staff">${esc(d.staff_id || "-")}</div>
+                </td>
+                <td class="pp-num"><span class="pp-badge assigned">${d.assigned_so}</span></td>
+                <td class="pp-num"><span class="pp-badge picking">${d.picking_so}</span></td>
+                <td class="pp-num"><span class="pp-badge done">${d.done_so}</span></td>
+                <td class="pp-num"><span class="pp-badge ${remBadge}">${d.remaining_so}</span></td>
+                <td class="pp-num">${Number(d.assigned_qty || 0).toLocaleString("id-ID")}</td>
+                <td class="pp-num">${Number(d.remaining_qty || 0).toLocaleString("id-ID")}</td>
+                <td class="pp-progress">
+                  <div class="pp-progress-top"><span>${pct.toFixed(1)}%</span><span>${d.done_so}/${d.assigned_so} SO</span></div>
+                  <div class="pp-bar"><div class="pp-bar-fill ${barClass}" style="width:${Math.min(100, pct)}%"></div></div>
+                </td>
+                <td><button class="pp-action" onclick="showPickerProgressDetail('${encodeURIComponent(d.key)}')">Lihat SO</button></td>
+              </tr>`;
+            })
+            .join("");
+        }
+
+        function showPickerProgressDetail(key) {
+          key = decodeURIComponent(String(key || ""));
+          const d = (pickerProgressRows || []).find((x) => x.key === key);
+          if (!d) return;
+          const bg = document.getElementById("picker-progress-modal");
+          const title = document.getElementById("pp-modal-title");
+          const sub = document.getElementById("pp-modal-sub");
+          const tbody = document.getElementById("pp-modal-tbody");
+          if (!bg || !tbody) return;
+          title.innerText = "Remaining SO · " + d.picker;
+          sub.innerText = `${d.remaining_so} SO remaining · ${Number(d.remaining_qty || 0).toLocaleString("id-ID")} qty · ${d.staff_id || "-"}`;
+          const list = [...(d.remaining_list || [])].sort((a, b) => {
+            const wa = WAVE_ORDER_SRG[a.WAVE] || waveRank(a.WAVE),
+              wb = WAVE_ORDER_SRG[b.WAVE] || waveRank(b.WAVE);
+            return (
+              wa - wb ||
+              String(a.destination_name || "").localeCompare(
+                String(b.destination_name || ""),
+              )
+            );
+          });
+          if (!list.length) {
+            tbody.innerHTML =
+              '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:18px">Picker ini sudah tidak punya remaining SO.</td></tr>';
+          } else {
+            tbody.innerHTML = list
+              .map((s) => {
+                const w = s.WAVE || getWave(s.destination_name);
+                return `<tr>
+                  <td class="mono">${esc(s.so_number || "-")}</td>
+                  <td style="font-weight:600">${esc(s.destination_name || "-")}</td>
+                  <td>${waveBadge(w)}</td>
+                  <td><span class="zone-badge">${esc(s.picking_zone || "-")}</span></td>
+                  <td><span class="badge ${statusClass(s.status)}">${esc(s.status || "NEW")}</span></td>
+                  <td class="mono" style="text-align:right;font-weight:800">${Number(s.request_quantity || 0).toLocaleString("id-ID")}</td>
+                </tr>`;
+              })
+              .join("");
+          }
+          bg.classList.add("open");
+        }
+
+        function closePickerProgressModal() {
+          const bg = document.getElementById("picker-progress-modal");
+          if (bg) bg.classList.remove("open");
+        }
+
         function buildChart(id, type, labels, data, label, colors) {
           if (charts[id]) charts[id].destroy();
           const ctx = document.getElementById(id).getContext("2d");
