@@ -4271,12 +4271,14 @@
                 done_qty: 0,
                 remaining_qty: 0,
                 progress_pct: 0,
+                so_list: [],
                 remaining_list: [],
               });
             }
             const d = map.get(key);
             d.assigned_so++;
             d.assigned_qty += req;
+            d.so_list.push(s);
             if (bucket === "picking") {
               d.picking_so++;
               d.remaining_list.push(s);
@@ -4359,7 +4361,7 @@
                   <div class="pp-progress-top"><span>${pct.toFixed(1)}%</span><span>${d.done_so}/${d.assigned_so} SO</span></div>
                   <div class="pp-bar"><div class="pp-bar-fill ${barClass}" style="width:${Math.min(100, pct)}%"></div></div>
                 </td>
-                <td><button class="pp-action" onclick="showPickerProgressDetail('${encodeURIComponent(d.key)}')">Lihat SO</button></td>
+                <td><button type="button" class="pp-action pp-detail-btn" data-picker-key="${escAttr(d.key)}">Lihat SO</button></td>
               </tr>`;
             })
             .join("");
@@ -4374,9 +4376,9 @@
           const sub = document.getElementById("pp-modal-sub");
           const tbody = document.getElementById("pp-modal-tbody");
           if (!bg || !tbody) return;
-          title.innerText = "Remaining SO · " + d.picker;
-          sub.innerText = `${d.remaining_so} SO remaining · ${Number(d.remaining_qty || 0).toLocaleString("id-ID")} qty · ${d.staff_id || "-"}`;
-          const list = [...(d.remaining_list || [])].sort((a, b) => {
+          title.innerText = "Daftar SO · " + d.picker;
+          sub.innerText = `${d.assigned_so} SO assigned · ${Number(d.assigned_qty || 0).toLocaleString("id-ID")} qty · ${d.staff_id || "-"}`;
+          const list = [...(d.so_list || [])].sort((a, b) => {
             const wa = WAVE_ORDER_SRG[a.WAVE] || waveRank(a.WAVE),
               wb = WAVE_ORDER_SRG[b.WAVE] || waveRank(b.WAVE);
             return (
@@ -4388,7 +4390,7 @@
           });
           if (!list.length) {
             tbody.innerHTML =
-              '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:18px">Picker ini sudah tidak punya remaining SO.</td></tr>';
+              '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:18px">Picker ini belum punya daftar SO.</td></tr>';
           } else {
             tbody.innerHTML = list
               .map((s) => {
@@ -4411,6 +4413,24 @@
           const bg = document.getElementById("picker-progress-modal");
           if (bg) bg.classList.remove("open");
         }
+
+        window.showPickerProgressDetail = showPickerProgressDetail;
+        window.closePickerProgressModal = closePickerProgressModal;
+
+        document.addEventListener(
+          "click",
+          function pickerProgressClickHandler(ev) {
+            const btn =
+              ev.target && ev.target.closest
+                ? ev.target.closest(".pp-detail-btn")
+                : null;
+            if (!btn) return;
+            ev.preventDefault();
+            ev.stopPropagation();
+            const key = btn.getAttribute("data-picker-key") || "";
+            showPickerProgressDetail(key);
+          },
+        );
 
         function buildChart(id, type, labels, data, label, colors) {
           if (charts[id]) charts[id].destroy();
