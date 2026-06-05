@@ -3732,29 +3732,27 @@
           const cnt = document.getElementById("log-count");
           if (cnt) cnt.textContent = box.children.length + " logs";
         }
-        document.addEventListener("DOMContentLoaded", () => {
-          applySavedTheme();
-          document
-            .getElementById("btn-add-picker")
-            .addEventListener("click", addPicker);
-          const pi = document.getElementById("mp-inp");
-          pi.addEventListener("paste", handlePickerPaste);
-          pi.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              addPicker();
-            }
-          });
-          if (isPreviewSandbox()) {
-            setPreviewModeUI();
-            addLog("Preview mode: GAS sync disabled.", "warn");
-          } else {
-            loadStaff();
-            loadData();
-            setInterval(loadData, 60 * 1000);
-          }
-        });
-      </script>
-    </div>
-  </body>
-</html>
+       document.addEventListener("DOMContentLoaded", () => {
+  applySavedTheme();
+  document
+    .getElementById("btn-add-picker")
+    .addEventListener("click", addPicker);
+
+  const pi = document.getElementById("mp-inp");
+  pi.addEventListener("paste", handlePickerPaste);
+  pi.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      addPicker();
+    }
+  });
+
+  if (isPreviewSandbox()) {
+    setPreviewModeUI();
+    addLog("Preview mode: GAS sync disabled.", "warn");
+  } else {
+    loadStaff();
+    loadData();
+    setInterval(loadData, 6 * 60 * 1000);
+  }
+});
