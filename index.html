@@ -2683,6 +2683,8 @@
           assignResult = {},
           assignSkippedRows = [],
           assignForcedRows = [],
+          lastBackendAssignedRows = [],
+          lastBackendAssignSummary = null,
           tblStatus = "ALL",
           charts = {},
           dashboardFiltersReady = false,
@@ -2959,6 +2961,12 @@
           const type =
             firstValue(raw, ["type", "TYPE", "Type"], "") ||
             getType(destination);
+          const locked = Boolean(
+            raw.locked === true ||
+              raw.locked === "true" ||
+              raw.locked === 1 ||
+              raw.locked === "1",
+          );
           return {
             ...raw,
             so_number: soNumber,
@@ -2972,6 +2980,12 @@
             sku_count: skuCount,
             WAVE: wave,
             type,
+            locked,
+            local_status: firstValue(raw, ["local_status", "Local Status"], ""),
+            local_picker: firstValue(raw, ["local_picker", "Local Picker"], ""),
+            local_staff_id: firstValue(raw, ["local_staff_id", "Local Staff ID"], ""),
+            sync_state: firstValue(raw, ["sync_state", "Sync State"], ""),
+            lock_batch_id: firstValue(raw, ["lock_batch_id", "Lock Batch ID"], ""),
           };
         }
         function getApiRows(res) {
@@ -2979,6 +2993,27 @@
           if (Array.isArray(res?.rows)) return res.rows;
           if (Array.isArray(res?.data)) return res.data;
           return [];
+        }
+
+        function isBlankPickerValue(v) {
+          const s = String(v || "").trim().toUpperCase();
+          return (
+            !s ||
+            s === "-" ||
+            s === "--" ||
+            s === "N/A" ||
+            s === "#N/A" ||
+            s === "NULL" ||
+            s === "UNASSIGNED"
+          );
+        }
+
+        function isAssignableSO(s) {
+          const status = String(s?.status || "").trim().toUpperCase();
+          if (s?.locked) return false;
+          if (!isBlankPickerValue(s?.Picker || s?.picker)) return false;
+          if (status && status !== "NEW") return false;
+          return true;
         }
         async function loadStaff() {
           try {
@@ -3338,13 +3373,12 @@
           soData.forEach((s) => {
             const w = s.WAVE || getWave(s.destination_name);
             const t = s.type || getType(s.destination_name);
-            if (s.status === "NEW" || !s.Picker) u++;
+            if (isAssignableSO(s)) u++;
             if (
-              s.status === "NEW" &&
+              isAssignableSO(s) &&
               fWave.has(w) &&
               fType.has(t) &&
-              fZone.has(s.picking_zone) &&
-              !s.Picker
+              fZone.has(s.picking_zone)
             ) {
               c++;
               q += s.request_quantity;
@@ -3361,11 +3395,10 @@
             const w = s.WAVE || getWave(s.destination_name);
             const t = s.type || getType(s.destination_name);
             return (
-              s.status === "NEW" &&
+              isAssignableSO(s) &&
               fWave.has(w) &&
               fType.has(t) &&
-              fZone.has(s.picking_zone) &&
-              !s.Picker
+              fZone.has(s.picking_zone)
             );
           });
         }
@@ -3382,6 +3415,8 @@
           assignResult = {};
           assignSkippedRows = [];
           assignForcedRows = [];
+          lastBackendAssignedRows = [];
+          lastBackendAssignSummary = null;
           pList.forEach((p) => {
             assignResult[p] = {
               picker: p,
@@ -3602,6 +3637,22 @@
           return rows;
         }
 
+        function buildBackendAssignedRows() {
+          return (lastBackendAssignedRows || []).map((x) => ({
+            picker: x.picker || x.local_picker || "",
+            staff_id: x.staff_id || x.local_staff_id || "",
+            so: {
+              ...x,
+              so_number: x.so_number,
+              WAVE: x.wave || x.WAVE || x.local_wave || "",
+              wave: x.wave || x.WAVE || x.local_wave || "",
+              request_quantity: Number(x.qty || x.local_qty || x.request_quantity || 0),
+              destination_name: x.destination || x.destination_name || "",
+              picking_zone: x.zone || x.picking_zone || x.local_zone || "",
+            },
+          }));
+        }
+
         function buildSOCopyText(rows) {
           return rows.map((x) => x.so.so_number).join("\n");
         }
@@ -3804,7 +3855,8 @@
             alert("Preview mode: upload dimatikan.");
             return;
           }
-          let payload = [];
+
+          const payload = [];
           Object.values(assignResult).forEach((d) => {
             const sid = getPickerStaffId(d.picker);
             d.soList.forEach((s) => {
@@ -3815,41 +3867,97 @@
               });
             });
           });
-          if (!payload.length) return;
+
+          if (!payload.length) {
+            alert("Belum ada SO hasil alokasi.");
+            return;
+          }
+
           const btn = document.querySelector('[onclick="submitToGoogle()"]');
-          const old = btn.innerText;
-          btn.innerText = "Uploading...";
-          btn.style.opacity = "0.6";
-          btn.disabled = true;
+          const old = btn ? btn.innerText : "";
+          if (btn) {
+            btn.innerText = "Locking...";
+            btn.style.opacity = "0.6";
+            btn.disabled = true;
+          }
+
           try {
             const r = await fetch(GAS + "?t=" + Date.now(), {
               method: "POST",
               cache: "no-store",
-              body: JSON.stringify({ action: "assign", data: payload }),
+              body: JSON.stringify({
+                action: "assignBatch",
+                rows: payload,
+                assigned_by: "PLAYMAKER_SRG_WEB",
+              }),
             });
+
+            if (!r.ok) throw new Error("HTTP " + r.status);
+
             const res = await r.json();
-            if (res.status === "success") {
-              alert("Berhasil! Data alokasi masuk ke Google Sheets.");
-              addLog("Assign upload OK · " + payload.length + " SO sent", "ok");
-              document.getElementById("ap-right").innerHTML =
-                '<div class="empty"><div class="empty-icon" style="color:var(--green);opacity:1">✓</div><div class="empty-txt" style="color:var(--green)"><strong>UPLOAD BERHASIL!</strong></div></div>';
-              if (!isPreviewSandbox()) setTimeout(loadData, 1200);
-            } else {
-              addLog(
-                "Assign upload failed: " + (res.message || "unknown"),
-                "err",
-              );
-              alert("Gagal: " + res.message);
+            if (res.status !== "success") {
+              throw new Error(res.error || res.message || "Backend assign failed.");
+            }
+
+            const assigned = Array.isArray(res.assigned) ? res.assigned : [];
+            const conflict = Array.isArray(res.conflict) ? res.conflict : [];
+            const skipped = Array.isArray(res.skipped) ? res.skipped : [];
+            const sum = res.summary || {
+              requested: payload.length,
+              assigned: assigned.length,
+              conflict: conflict.length,
+              skipped: skipped.length,
+            };
+
+            lastBackendAssignedRows = assigned;
+            lastBackendAssignSummary = {
+              batch_id: res.batch_id || "",
+              ...sum,
+            };
+
+            addLog(
+              `Backend lock result · batch ${res.batch_id || "-"} · assigned ${sum.assigned || 0} · conflict ${sum.conflict || 0} · skipped ${sum.skipped || 0}`,
+              conflict.length ? "warn" : "ok",
+            );
+
+            let msg =
+              `Backend lock selesai.\n\n` +
+              `Batch: ${res.batch_id || "-"}\n` +
+              `Requested: ${sum.requested || payload.length}\n` +
+              `Assigned: ${sum.assigned || 0}\n` +
+              `Conflict: ${sum.conflict || 0}\n` +
+              `Skipped: ${sum.skipped || 0}`;
+
+            if (conflict.length) {
+              const preview = conflict
+                .slice(0, 8)
+                .map(
+                  (x) =>
+                    `- ${x.so_number || "-"} · ${x.reason || "CONFLICT"}${x.locked_by ? " · locked by " + x.locked_by : ""}`,
+                )
+                .join("\n");
+              msg += `\n\nConflict sample:\n${preview}`;
+              if (conflict.length > 8) msg += `\n... +${conflict.length - 8} lagi`;
+            }
+
+            alert(msg);
+
+            const csvHint = assigned.length
+              ? `<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button class="btn-ghost" onclick="downloadCSV()">📥 Download CSV Assigned</button><button class="btn-ghost" onclick="copyRawText(this, buildWmsCsvText(buildBackendAssignedRows()))">📋 Copy WMS Assigned</button></div>`
+              : "";
+
+            document.getElementById("ap-right").innerHTML =
+              `<div class="empty"><div class="empty-icon" style="color:${conflict.length ? "var(--amber)" : "var(--green)"};opacity:1">${conflict.length ? "⚠️" : "✓"}</div><div class="empty-txt" style="color:${conflict.length ? "var(--amber)" : "var(--green)"}"><strong>${conflict.length ? "LOCK PARTIAL / CONFLICT" : "LOCK BERHASIL"}</strong><br>Assigned: ${sum.assigned || 0} · Conflict: ${sum.conflict || 0} · Skipped: ${sum.skipped || 0}<br>Batch: ${esc(res.batch_id || "-")}${csvHint}</div></div>`;
+
+            if (!isPreviewSandbox()) setTimeout(loadData, 1200);
+          } catch (e) {
+            addLog("Assign upload error: " + (e.message || e), "err");
+            alert("Koneksi/backend error: " + (e.message || e));
+            if (btn) {
               btn.innerText = old;
               btn.style.opacity = "1";
               btn.disabled = false;
             }
-          } catch (e) {
-            addLog("Assign upload error: " + (e.message || e), "err");
-            alert("Koneksi error.");
-            btn.innerText = old;
-            btn.style.opacity = "1";
-            btn.disabled = false;
           }
         }
         function setF(status, el) {
@@ -3913,7 +4021,16 @@
               else if (["PACKING", "STAGING", "LOADING"].includes(s.status))
                 sc = "s-done";
               else if (s.status === "READY TO SHIP") sc = "s-del";
-              return `<tr><td class="mono">${esc(s.so_number)}</td><td style="font-weight:500">${esc(s.destination_name)}</td><td>${waveBadge(w)}</td><td><span class="badge ${String(t).toLowerCase()}">${esc(t)}</span></td><td><span class="badge s-new" style="background:none;color:var(--text)">${esc(s.picking_zone || "-")}</span></td><td><span class="badge ${sc}">${esc(s.status)}</span></td><td class="mono" style="font-weight:600;color:var(--blue)">${esc(s.Picker || "-")}</td><td class="mono" style="font-weight:600;color:var(--text2)">${esc(s.staff_id || "-")}</td><td class="mono" style="text-align:right;font-weight:600">${s.request_quantity}</td><td class="mono" style="text-align:right;color:var(--text3)">${s.sku_count}</td></tr>`;
+              const lockBadge = s.locked
+                ? ` <span class="badge s-prog" title="${esc(s.sync_state || "")}">LOCKED</span>`
+                : "";
+              const pickerText =
+                s.Picker ||
+                (s.locked ? s.local_picker || "LOCAL LOCK" : "-");
+              const staffText =
+                s.staff_id ||
+                (s.locked ? s.local_staff_id || "-" : "-");
+              return `<tr><td class="mono">${esc(s.so_number)}${lockBadge}</td><td style="font-weight:500">${esc(s.destination_name)}</td><td>${waveBadge(w)}</td><td><span class="badge ${String(t).toLowerCase()}">${esc(t)}</span></td><td><span class="badge s-new" style="background:none;color:var(--text)">${esc(s.picking_zone || "-")}</span></td><td><span class="badge ${sc}">${esc(s.status)}</span></td><td class="mono" style="font-weight:600;color:var(--blue)">${esc(pickerText)}</td><td class="mono" style="font-weight:600;color:var(--text2)">${esc(staffText)}</td><td class="mono" style="text-align:right;font-weight:600">${s.request_quantity}</td><td class="mono" style="text-align:right;color:var(--text3)">${s.sku_count}</td></tr>`;
             })
             .join("");
         }
@@ -4618,10 +4735,10 @@
         }
 
         function downloadCSV() {
-          const rows = buildAssignedRows();
+          const rows = buildBackendAssignedRows();
 
           if (!rows.length) {
-            alert("Jalankan assign dulu.");
+            alert("Belum ada assigned yang sudah sukses dari backend. Klik Simpan ke Google Sheets dulu.");
             return;
           }
 
@@ -4660,7 +4777,7 @@
           });
 
           addLog(
-            `CSV split by wave downloaded: ${waves.length} file · ${rows.length} SO`,
+            `CSV backend assigned downloaded: ${waves.length} file · ${rows.length} SO`,
             "ok",
           );
         }
