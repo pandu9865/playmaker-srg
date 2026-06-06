@@ -1781,6 +1781,211 @@
         border-bottom: 1px solid var(--border);
       }
 
+
+      /* ===== ZONE WORKLOAD PLANNER ===== */
+      .zone-planner-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 12px;
+        box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+      }
+      .zone-planner-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .zone-planner-title {
+        font-size: 12px;
+        font-weight: 900;
+        color: var(--text);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .zone-planner-sub {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--text3);
+        margin-top: 2px;
+        line-height: 1.45;
+      }
+      .zone-planner-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(220px, 1fr));
+        gap: 10px;
+      }
+      @media (max-width: 1200px) {
+        .zone-planner-grid { grid-template-columns: repeat(2, minmax(220px, 1fr)); }
+      }
+      @media (max-width: 850px) {
+        .zone-planner-grid { grid-template-columns: 1fr; }
+      }
+      .zone-plan {
+        border: 1px solid var(--border);
+        background: var(--bg3);
+        border-radius: 12px;
+        padding: 11px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .zone-plan.chamber {
+        border-color: #fcd34d;
+        background: var(--amber-dim);
+      }
+      .zone-plan.ambient {
+        border-color: #93c5fd;
+        background: var(--blue-dim);
+      }
+      .zone-plan.glassdoor {
+        border-color: #5eead4;
+        background: var(--teal-light);
+      }
+      .zone-plan-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .zone-plan-name {
+        font-family: var(--mono);
+        font-size: 15px;
+        font-weight: 900;
+        color: var(--text);
+        line-height: 1.1;
+      }
+      .zone-plan-group {
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 900;
+        color: var(--text2);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 2px;
+      }
+      .zone-plan-target {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--text2);
+        text-align: right;
+        white-space: nowrap;
+      }
+      .zone-plan-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .zone-plan-metric {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 7px 8px;
+      }
+      .zone-plan-label {
+        font-family: var(--mono);
+        font-size: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text3);
+        margin-bottom: 2px;
+      }
+      .zone-plan-val {
+        font-family: var(--mono);
+        font-size: 13px;
+        font-weight: 900;
+        color: var(--text);
+      }
+      .zone-plan-bar {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--bg4);
+        overflow: hidden;
+      }
+      .zone-plan-bar-fill {
+        height: 6px;
+        border-radius: 999px;
+        transition: width 0.35s ease;
+      }
+      .zone-plan-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .zone-plan-btn {
+        flex: 1;
+        border: 1px solid var(--border2);
+        background: var(--bg2);
+        color: var(--text2);
+        border-radius: 8px;
+        padding: 6px 8px;
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .zone-plan-btn:hover {
+        background: var(--blue-light);
+        border-color: #93c5fd;
+        color: var(--blue);
+      }
+      .zone-detail-modal {
+        background: var(--bg2);
+        border-radius: 12px;
+        max-width: 1000px;
+        width: 94%;
+        max-height: 86vh;
+        box-shadow: 0 20px 60px #0003;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .zone-detail-head {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .zone-detail-title {
+        font-weight: 900;
+        font-size: 15px;
+      }
+      .zone-detail-sub {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--text2);
+        margin-top: 2px;
+      }
+      .zone-detail-body {
+        padding: 12px 18px 18px;
+        overflow: auto;
+      }
+      .zone-detail-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 760px;
+        font-size: 12px;
+      }
+      .zone-detail-table th {
+        background: var(--bg3);
+        color: var(--text3);
+        font-family: var(--mono);
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+      }
+      .zone-detail-table td {
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+      }
+
       ::-webkit-scrollbar {
         width: 5px;
         height: 5px;
@@ -2674,6 +2879,33 @@
           MRG: "Ekor",
           TAP: "Ekor",
         };
+
+        const ZONE_PROFILE_SRG = {
+          ABD2: { group: "Ambient", target: 2400, priority: 2 },
+          CHA2: { group: "Chamber", target: 1500, priority: 1 },
+          CHB2: { group: "Chamber", target: 1500, priority: 1 },
+          CHC2: { group: "Chamber", target: 1500, priority: 1 },
+          GDA1: { group: "Glassdoor", target: 2400, priority: 3 },
+          GDB1: { group: "Glassdoor", target: 2400, priority: 3 },
+          GDC1: { group: "Glassdoor", target: 2400, priority: 3 },
+          GDD1: { group: "Glassdoor", target: 2400, priority: 3 },
+          GDG1: { group: "Glassdoor", target: 2400, priority: 3 },
+        };
+        function getZoneProfile(zone) {
+          const z = String(zone || "").trim().toUpperCase();
+          return ZONE_PROFILE_SRG[z] || { group: "Other", target: 2400, priority: 9 };
+        }
+        function getZoneTarget(zone) {
+          return Number(getZoneProfile(zone).target || 2400);
+        }
+        function zoneClassName(zone) {
+          const g = String(getZoneProfile(zone).group || "Other").toLowerCase();
+          if (g === "chamber") return "chamber";
+          if (g === "ambient") return "ambient";
+          if (g === "glassdoor") return "glassdoor";
+          return "other";
+        }
+
         let soData = [],
           staffMaster = [],
           fWave = new Set(),
@@ -2690,6 +2922,7 @@
           dashboardFiltersReady = false,
           hourlyReportData = null,
           pickerProgressRows = [],
+          lastZonePlannerRows = [],
           filterStateReady = { wave: false, type: false };
         function esc(s) {
           if (!s) return "";
@@ -3320,6 +3553,254 @@
             " picker" +
             (missing ? ` · ${missing} tanpa Staff ID` : "");
         }
+
+        function hasAssignmentPreview() {
+          return Object.values(assignResult || {}).some(
+            (d) => d && Array.isArray(d.soList) && d.soList.length,
+          );
+        }
+        function buildZoneWorkload(pool = getAssignablePool()) {
+          const map = {};
+          pool.forEach((s) => {
+            const zone = String(s.picking_zone || "UNKNOWN").trim() || "UNKNOWN";
+            const profile = getZoneProfile(zone);
+            if (!map[zone]) {
+              map[zone] = {
+                zone,
+                group: profile.group,
+                target: profile.target,
+                priority: profile.priority,
+                so: 0,
+                qty: 0,
+                sku: 0,
+                rows: [],
+              };
+            }
+            map[zone].so++;
+            map[zone].qty += Number(s.request_quantity || 0);
+            map[zone].sku += Number(s.sku_count || 0);
+            map[zone].rows.push(s);
+          });
+          return Object.values(map)
+            .map((z) => ({
+              ...z,
+              need: Math.max(1, Math.ceil(Number(z.qty || 0) / Math.max(1, Number(z.target || 2400)))),
+            }))
+            .sort((a, b) => {
+              const pr = Number(a.priority || 9) - Number(b.priority || 9);
+              if (pr !== 0) return pr;
+              return Number(b.qty || 0) - Number(a.qty || 0) || String(a.zone).localeCompare(String(b.zone));
+            });
+        }
+        function zonePlannerHtml(pool = getAssignablePool()) {
+          const zones = buildZoneWorkload(pool);
+          lastZonePlannerRows = zones;
+          const totalSO = zones.reduce((a, z) => a + z.so, 0);
+          const totalQty = zones.reduce((a, z) => a + z.qty, 0);
+          const totalNeed = zones.reduce((a, z) => a + z.need, 0);
+          const pickerCount = getPickerNames().length;
+          if (!zones.length) {
+            return `<div class="zone-planner-card"><div class="zone-planner-head"><div><div class="zone-planner-title">Zone Workload Planner</div><div class="zone-planner-sub">Tidak ada SO available sesuai filter. Cek Wave / Type / Zone / Lock.</div></div></div></div>`;
+          }
+          const cards = zones
+            .map((z) => {
+              const coverage = Math.min(100, Math.round((z.qty / Math.max(1, z.target * z.need)) * 100));
+              const color = z.group === "Chamber" ? "var(--amber)" : z.group === "Glassdoor" ? "var(--teal)" : "var(--blue)";
+              return `<div class="zone-plan ${zoneClassName(z.zone)}">
+                <div class="zone-plan-top">
+                  <div>
+                    <div class="zone-plan-name">${esc(z.zone)}</div>
+                    <div class="zone-plan-group">${esc(z.group)}</div>
+                  </div>
+                  <div class="zone-plan-target">Target<br><strong>${Number(z.target).toLocaleString("id-ID")}</strong>/picker</div>
+                </div>
+                <div class="zone-plan-metrics">
+                  <div class="zone-plan-metric"><div class="zone-plan-label">SO</div><div class="zone-plan-val">${z.so.toLocaleString("id-ID")}</div></div>
+                  <div class="zone-plan-metric"><div class="zone-plan-label">Qty</div><div class="zone-plan-val">${z.qty.toLocaleString("id-ID")}</div></div>
+                  <div class="zone-plan-metric"><div class="zone-plan-label">Need</div><div class="zone-plan-val">${z.need.toLocaleString("id-ID")} picker</div></div>
+                </div>
+                <div class="zone-plan-bar"><div class="zone-plan-bar-fill" style="width:${coverage}%;background:${color}"></div></div>
+                <div class="zone-plan-actions">
+                  <button class="zone-plan-btn" onclick="viewZoneSO('${attr(z.zone)}')">View SO</button>
+                  <button class="zone-plan-btn" onclick="suggestSingleZone('${attr(z.zone)}')">Suggest Zone</button>
+                </div>
+              </div>`;
+            })
+            .join("");
+          const shortage = totalNeed > pickerCount && pickerCount > 0
+            ? `<span style="color:var(--red);font-weight:900">Picker kurang ${totalNeed - pickerCount}</span>`
+            : pickerCount > 0
+              ? `<span style="color:var(--green);font-weight:900">Picker input ${pickerCount}</span>`
+              : `<span style="color:var(--amber);font-weight:900">Picker belum diinput</span>`;
+          return `<div class="zone-planner-card">
+            <div class="zone-planner-head">
+              <div>
+                <div class="zone-planner-title">Zone Workload Planner</div>
+                <div class="zone-planner-sub">${totalSO.toLocaleString("id-ID")} SO · ${totalQty.toLocaleString("id-ID")} qty · ideal ${totalNeed.toLocaleString("id-ID")} picker · ${shortage}</div>
+              </div>
+              <button class="btn-ghost" onclick="generateSmartSuggestion()">🪄 Suggest All Zone</button>
+            </div>
+            <div class="zone-planner-grid">${cards}</div>
+          </div>`;
+        }
+        function renderAssignHome() {
+          const container = document.getElementById("ap-right");
+          if (!container || hasAssignmentPreview()) return;
+          container.innerHTML =
+            zonePlannerHtml() +
+            `<div class="empty" style="min-height:220px">
+              <div class="empty-icon">🎯</div>
+              <div class="empty-txt">Review workload per zone<br />lalu klik <strong>SMART SUGGESTION</strong> atau <strong>Suggest Zone</strong></div>
+            </div>`;
+        }
+        function viewZoneSO(zone) {
+          const rows = getAssignablePool()
+            .filter((s) => String(s.picking_zone || "") === String(zone || ""))
+            .sort((a, b) => Number(b.request_quantity || 0) - Number(a.request_quantity || 0));
+          const qty = rows.reduce((a, s) => a + Number(s.request_quantity || 0), 0);
+          const htmlRows = rows
+            .map((s) => {
+              const w = s.WAVE || getWave(s.destination_name);
+              const t = s.type || getType(s.destination_name);
+              return `<tr>
+                <td class="mono">${esc(s.so_number)}</td>
+                <td>${esc(s.destination_name || "-")}</td>
+                <td>${waveBadge(w)}</td>
+                <td><span class="badge ${String(t || "oth").toLowerCase()}">${esc(t || "-")}</span></td>
+                <td class="mono" style="text-align:right;font-weight:900">${Number(s.request_quantity || 0).toLocaleString("id-ID")}</td>
+                <td class="mono" style="text-align:right">${Number(s.sku_count || 0).toLocaleString("id-ID")}</td>
+              </tr>`;
+            })
+            .join("");
+          const bg = document.createElement("div");
+          bg.className = "modal-bg open";
+          bg.id = "zone-detail-modal-bg";
+          bg.innerHTML = `<div class="zone-detail-modal">
+            <div class="zone-detail-head">
+              <div>
+                <div class="zone-detail-title">Daftar SO · ${esc(zone)}</div>
+                <div class="zone-detail-sub">${rows.length.toLocaleString("id-ID")} SO · ${qty.toLocaleString("id-ID")} qty · target ${getZoneTarget(zone).toLocaleString("id-ID")}/picker</div>
+              </div>
+              <button class="btn-cancel" onclick="closeZoneDetailModal()">Tutup</button>
+            </div>
+            <div class="zone-detail-body">
+              <table class="zone-detail-table">
+                <thead><tr><th>SO Number</th><th>Destination</th><th>Wave</th><th>Type</th><th style="text-align:right">Qty</th><th style="text-align:right">SKU</th></tr></thead>
+                <tbody>${htmlRows || `<tr><td colspan="6" class="hour-empty">Tidak ada SO available di zone ini.</td></tr>`}</tbody>
+              </table>
+            </div>
+          </div>`;
+          document.body.appendChild(bg);
+        }
+        function closeZoneDetailModal() {
+          const bg = document.getElementById("zone-detail-modal-bg");
+          if (bg) bg.remove();
+        }
+        function allocateZoneAware(pool, pList, options = {}) {
+          const iw = getInitialWorkload(pList);
+          initAssignResult(pList, iw);
+          const zones = buildZoneWorkload(pool);
+          const singleZone = options.singleZone || "";
+          const zoneQueue = singleZone ? zones.filter((z) => z.zone === singleZone) : zones;
+          if (!zoneQueue.length) return { targetLabel: Number(document.getElementById("target").value) || 2400, zones: [] };
+
+          const zoneAlloc = {};
+          zoneQueue.forEach((z) => (zoneAlloc[z.zone] = []));
+          let remainingPickers = pList.slice();
+
+          while (remainingPickers.length && zoneQueue.some((z) => zoneAlloc[z.zone].length < z.need)) {
+            const bestZone = zoneQueue
+              .filter((z) => zoneAlloc[z.zone].length < z.need)
+              .sort((a, b) => {
+                const ar = Number(a.qty || 0) / Math.max(1, Number(a.target || 2400) * (zoneAlloc[a.zone].length + 1));
+                const br = Number(b.qty || 0) / Math.max(1, Number(b.target || 2400) * (zoneAlloc[b.zone].length + 1));
+                const ap = Number(a.priority || 9), bp = Number(b.priority || 9);
+                if (ap !== bp) return ap - bp;
+                return br - ar || Number(b.qty || 0) - Number(a.qty || 0);
+              })[0];
+            zoneAlloc[bestZone.zone].push(remainingPickers.shift());
+          }
+
+          // Kalau cuma satu zone, semua picker dipakai untuk zone itu.
+          if (singleZone && remainingPickers.length) {
+            zoneAlloc[singleZone].push(...remainingPickers.splice(0));
+          }
+
+          zoneQueue.forEach((z) => {
+            const pickers = zoneAlloc[z.zone] || [];
+            pickers.forEach((p) => {
+              assignResult[p].zone = z.zone;
+              assignResult[p].zoneGroup = z.group;
+              assignResult[p].zoneTarget = z.target;
+              assignResult[p].totalQty = Number(assignResult[p].initialQty || 0);
+            });
+            if (!pickers.length) {
+              z.rows.forEach((s) => assignSkippedRows.push({ ...s, skip_reason: "NO_PICKER_FOR_ZONE" }));
+              return;
+            }
+            z.rows
+              .slice()
+              .sort((a, b) => Number(b.request_quantity || 0) - Number(a.request_quantity || 0) || Number(b.sku_count || 0) - Number(a.sku_count || 0))
+              .forEach((s) => {
+                const sq = Number(s.request_quantity || 0);
+                const hard = Number(z.target || 2400);
+                const soft = Math.round(hard * 1.1);
+                let candidates = pickers.filter((p) => Number(assignResult[p].newQty || 0) + sq <= hard);
+                let forced = false;
+                if (!candidates.length) {
+                  candidates = pickers.filter((p) => Number(assignResult[p].newQty || 0) + sq <= soft);
+                  forced = candidates.length > 0;
+                }
+                if (!candidates.length) {
+                  assignSkippedRows.push({ ...s, skip_reason: "ZONE_TARGET_FULL" });
+                  return;
+                }
+                candidates.sort(
+                  (a, b) =>
+                    Number(assignResult[a].newQty || 0) - Number(assignResult[b].newQty || 0) ||
+                    Number(assignResult[a].soList.length || 0) - Number(assignResult[b].soList.length || 0),
+                );
+                const best = candidates[0];
+                const row = forced ? { ...s, force_assigned: true } : s;
+                assignResult[best].soList.push(row);
+                assignResult[best].newQty += sq;
+                assignResult[best].totalQty += sq;
+                if (forced) assignForcedRows.push({ ...row, picker: best });
+              });
+          });
+
+          // Picker yang tidak kepakai tetap tampil kosong.
+          pList.forEach((p) => {
+            if (!assignResult[p].zone) {
+              assignResult[p].zone = "-";
+              assignResult[p].zoneGroup = "Idle";
+              assignResult[p].zoneTarget = Number(document.getElementById("target").value) || 2400;
+            }
+          });
+
+          return { targetLabel: 0, zones: zoneQueue, zoneAlloc };
+        }
+        function getPickerCardTarget(d, fallback) {
+          return Number(d.zoneTarget || fallback || document.getElementById("target")?.value || 2400);
+        }
+        function suggestSingleZone(zone) {
+          const pList = getPickerNames();
+          if (!pList.length) {
+            alert("Isi minimal 1 picker dulu.");
+            return;
+          }
+          const pool = getAssignablePool().filter((s) => String(s.picking_zone || "") === String(zone || ""));
+          if (!pool.length) {
+            alert("Tidak ada SO available di zone " + zone);
+            return;
+          }
+          allocateZoneAware(pool, pList, { singleZone: zone });
+          const assigned = Object.values(assignResult).reduce((a, d) => a + d.soList.length, 0);
+          const target = getZoneTarget(zone);
+          addLog("Suggest Zone " + zone + ": " + assigned + " SO · target " + target.toLocaleString("id-ID"), "ok");
+          renderResultCards(target);
+        }
+
         function renderZoneChips(all) {
           const div = document.getElementById("fz");
           div.innerHTML = all
@@ -3389,6 +3870,7 @@
           document.getElementById("f-count").innerText = c;
           document.getElementById("f-qty").innerText =
             q.toLocaleString("id-ID") + " qty tersedia";
+          renderAssignHome();
         }
         function getAssignablePool() {
           return soData.filter((s) => {
@@ -3499,25 +3981,13 @@
             alert("Isi minimal 1 nama picker dulu!");
             return;
           }
-          let c = 0;
-          soData.forEach((s) => {
-            const w = s.WAVE || getWave(s.destination_name);
-            const t = s.type || getType(s.destination_name);
-            if (
-              s.status === "NEW" &&
-              fWave.has(w) &&
-              fType.has(t) &&
-              fZone.has(s.picking_zone) &&
-              !s.Picker
-            )
-              c++;
-          });
+          const c = getAssignablePool().length;
           if (!c) {
             alert("Gak ada SO NEW yang lolos filter.");
             return;
           }
           document.getElementById("modal-body").innerHTML =
-            `Sistem akan membagi rata <strong>${c} SO</strong> ke <strong>${myPickers.size} picker</strong>. Lanjutkan?`;
+            `Sistem akan membuat preview assignment berbasis <strong>target zone</strong> untuk <strong>${c} SO</strong> ke <strong>${myPickers.size} picker</strong>.<br><br>Chamber: <strong>1.500</strong>/picker · Ambient/Glassdoor: <strong>2.400</strong>/picker. Lanjutkan?`;
           document.getElementById("modal").classList.add("open");
         }
         function closeModal() {
@@ -3525,7 +3995,6 @@
         }
         function runAssign() {
           closeModal();
-          const tgt = Number(document.getElementById("target").value) || 2400;
           const pList = getPickerNames();
           if (!pList.length) {
             alert("Isi minimal 1 picker!");
@@ -3536,33 +4005,33 @@
             alert("Gak ada SO yang bisa di-assign.");
             return;
           }
-          const iw = getInitialWorkload(pList);
-          initAssignResult(pList, iw);
-          const sp = pool
-            .slice()
-            .sort(
-              (a, b) =>
-                Number(b.request_quantity || 0) -
-                Number(a.request_quantity || 0),
-            );
-          allocatePoolHardLimit(sp, pList, tgt);
-          forceAllocateSmallSkippedRows(pList, tgt);
+          const result = allocateZoneAware(pool, pList);
+          const assigned = Object.values(assignResult).reduce(
+            (a, d) => a + d.soList.length,
+            0,
+          );
+          const skippedQty = assignSkippedRows.reduce(
+            (a, s) => a + Number(s.request_quantity || 0),
+            0,
+          );
           if (assignSkippedRows.length) {
-            const skq = assignSkippedRows.reduce(
-              (a, s) => a + Number(s.request_quantity || 0),
-              0,
-            );
             addLog(
               assignSkippedRows.length +
                 " SO / " +
-                skq.toLocaleString("id-ID") +
-                " qty di-skip (hard limit " +
-                tgt.toLocaleString("id-ID") +
-                ")",
+                skippedQty.toLocaleString("id-ID") +
+                " qty di-skip (zone target full / picker kurang)",
               "warn",
             );
           }
-          renderResultCards(tgt);
+          addLog(
+            "Zone Assign Preview: " +
+              assigned +
+              " SO assigned · " +
+              assignSkippedRows.length +
+              " skipped",
+            "ok",
+          );
+          renderResultCards(2400);
         }
         function generateSmartSuggestion() {
           const pList = getPickerNames();
@@ -3575,42 +4044,45 @@
             alert("Gak ada SO untuk di-assign.");
             return;
           }
-          const iw = getInitialWorkload(pList);
-          const { recommendedTarget } = calculateSmartTarget(pool, pList, iw);
-          document.getElementById("target").value = recommendedTarget;
-          initAssignResult(pList, iw);
-          const sp = pool.slice().sort((a, b) => {
-            const zs = String(a.picking_zone || "ZZZ").localeCompare(
-              String(b.picking_zone || "ZZZ"),
-              "id",
-            );
-            if (zs !== 0) return zs;
-            return (
-              Number(b.request_quantity || 0) - Number(a.request_quantity || 0)
-            );
-          });
-          allocatePoolHardLimit(sp, pList, recommendedTarget);
-          forceAllocateSmallSkippedRows(pList, recommendedTarget);
+          const zones = buildZoneWorkload(pool);
+          const idealPickers = zones.reduce((a, z) => a + z.need, 0);
+          allocateZoneAware(pool, pList);
           const assigned = Object.values(assignResult).reduce(
             (a, d) => a + d.soList.length,
             0,
           );
+          const assignedQty = Object.values(assignResult).reduce(
+            (a, d) => a + Number(d.newQty || 0),
+            0,
+          );
+          const chamberQty = Object.values(assignResult)
+            .filter((d) => d.zoneGroup === "Chamber")
+            .reduce((a, d) => a + Number(d.newQty || 0), 0);
           addLog(
-            "Smart Suggestion: " +
+            "Smart Zone Suggestion: " +
               assigned +
-              " SO assigned · target: " +
-              recommendedTarget.toLocaleString("id-ID"),
+              " SO · " +
+              assignedQty.toLocaleString("id-ID") +
+              " qty · " +
+              zones.length +
+              " zone",
             "ok",
           );
-          renderResultCards(recommendedTarget);
+          renderResultCards(2400);
           alert(
-            "🪄 Smart Suggestion selesai.\nTarget: " +
-              recommendedTarget.toLocaleString("id-ID") +
-              " qty/picker\nAssigned: " +
+            "🪄 Smart Suggestion selesai.\n\nRule:\n- Chamber target 1.500 / picker\n- Ambient & Glassdoor target 2.400 / picker\n- SO locked/status non-NEW tetap exclude\n\nZone: " +
+              zones.length +
+              "\nIdeal picker: " +
+              idealPickers +
+              "\nPicker input: " +
+              pList.length +
+              "\nAssigned: " +
               assigned +
-              " SO\nSkipped: " +
+              " SO / " +
+              assignedQty.toLocaleString("id-ID") +
+              " qty\nSkipped: " +
               assignSkippedRows.length +
-              " SO\n\nKlik Simpan & Upload kalau sudah cocok.",
+              " SO\n\nReview dulu sebelum Simpan ke Google Sheets.",
           );
         }
         function extractWmsSoId(s) {
@@ -3795,9 +4267,10 @@
             (a, s) => a + Number(s.request_quantity || 0),
             0,
           );
-          let html = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px;flex-wrap:wrap"><div><div style="font-weight:700;font-size:14px">Hasil Alokasi</div><div class="mono" style="font-size:10px;color:var(--text3);margin-top:2px">${totalSO.toLocaleString("id-ID")} SO assigned · ${totalQty.toLocaleString("id-ID")} qty · ${skipSO.toLocaleString("id-ID")} SO skipped · ${arr.length} picker</div></div><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn-ghost" onclick="copyAssignedGlobal('so',this,event)">📋 Copy All SO</button><button class="btn-ghost" onclick="copyAssignedGlobal('upload',this,event)">📋 Copy WMS Format</button><button class="btn-ghost" onclick="submitToGoogle()" style="background:var(--green);color:#fff;border:none;font-weight:600;padding:6px 12px">💾 Simpan ke Google Sheets</button></div></div>${skipSO ? `<div style="margin-bottom:12px;background:var(--amber-dim);border:1px solid var(--amber-light);color:var(--amber);border-radius:8px;padding:10px 12px;font-family:var(--mono);font-size:11px">⚠️ ${skipSO} SO / ${skipQty.toLocaleString("id-ID")} qty di-skip (hard limit ${tgt.toLocaleString("id-ID")} qty/picker)</div>` : ""}<div style="display:flex;flex-direction:column;gap:10px" id="picker-grid">`;
+          let html = zonePlannerHtml() + `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px;flex-wrap:wrap"><div><div style="font-weight:700;font-size:14px">Hasil Alokasi Zone-Aware</div><div class="mono" style="font-size:10px;color:var(--text3);margin-top:2px">${totalSO.toLocaleString("id-ID")} SO assigned · ${totalQty.toLocaleString("id-ID")} qty · ${skipSO.toLocaleString("id-ID")} SO skipped · ${arr.length} picker</div></div><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn-ghost" onclick="copyAssignedGlobal('so',this,event)">📋 Copy All SO</button><button class="btn-ghost" onclick="copyAssignedGlobal('upload',this,event)">📋 Copy WMS Format</button><button class="btn-ghost" onclick="submitToGoogle()" style="background:var(--green);color:#fff;border:none;font-weight:600;padding:6px 12px">💾 Simpan ke Google Sheets</button></div></div>${skipSO ? `<div style="margin-bottom:12px;background:var(--amber-dim);border:1px solid var(--amber-light);color:var(--amber);border-radius:8px;padding:10px 12px;font-family:var(--mono);font-size:11px">⚠️ ${skipSO} SO / ${skipQty.toLocaleString("id-ID")} qty di-skip (target zone full / picker kurang)</div>` : ""}<div style="display:flex;flex-direction:column;gap:10px" id="picker-grid">`;
           arr.forEach((d, idx) => {
-            const pctRaw = Math.round((d.totalQty / tgt) * 100);
+            const cardTarget = getPickerCardTarget(d, tgt);
+            const pctRaw = Math.round((d.totalQty / Math.max(1, cardTarget)) * 100);
             const pct = Math.min(100, pctRaw);
             const isOver = d.totalQty > tgt;
             const barColor = isOver
@@ -3837,7 +4310,7 @@
                 return `<tr><td class="mono">${esc(s.so_number)}</td><td style="font-weight:500">${esc(s.destination_name || "-")}</td><td class="mono"><span class="zone-badge">${esc(s.picking_zone || "-")}</span></td><td>${waveBadge(w)}</td><td><span class="badge ${String(t).toLowerCase()}">${esc(t)}</span></td><td class="mono" style="text-align:right;font-weight:700">${Number(s.request_quantity || 0).toLocaleString("id-ID")}${s.force_assigned ? ' <span class="badge s-prog">forced</span>' : ""}</td></tr>`;
               })
               .join("");
-            html += `<div class="pc" data-picker="${esc(d.picker)}" data-staff-id="${esc(sid)}"><div class="pc-head" onclick="this.parentElement.classList.toggle('open')"><div class="pc-av" style="background:${COLORS[idx % COLORS.length]}22;color:${COLORS[idx % COLORS.length]}">${esc(d.picker.slice(0, 2).toUpperCase())}</div><div class="pc-info"><div class="pc-name">${esc(sid ? sid + " | " : "")}${esc(d.picker)}</div><div class="pc-meta">${d.soList.length.toLocaleString("id-ID")} SO baru · ${d.newQty.toLocaleString("id-ID")} qty · ${ze.length} zone</div></div><div class="pc-right"><div style="text-align:right"><div class="pc-qty">${d.totalQty.toLocaleString("id-ID")} Qty</div><div class="pc-pct" style="color:${barColor};font-weight:600">${pctRaw}% dari target</div></div><div class="chevron">▼</div></div></div><div class="pc-bar"><div class="bar-bg"><div class="bar-fg" style="width:${pct}%;background:${barColor}"></div></div><div class="bar-lbl">(Beban: ${d.initialQty.toLocaleString("id-ID")} | Baru: +${d.newQty.toLocaleString("id-ID")})</div></div><div class="pc-detail"><div style="padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--bg3)"><div style="display:flex;gap:5px;flex-wrap:wrap">${zChips || '<span class="mono" style="color:var(--text3)">No zone</span>'}</div><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="copy-btn" onclick="copyAssignedPicker('so',this,event)">📋 Copy SO</button><button class="copy-btn" onclick="copyAssignedPicker('upload',this,event)">📋 Copy WMS</button><button class="copy-btn" onclick="downloadAssignedPickerCSV(this,event)">📥 CSV</button></div></div><div style="overflow:auto;max-height:420px"><table><thead><tr><th>SO Number</th><th>Destination</th><th>Zone</th><th>Wave</th><th>Type</th><th style="text-align:right">Qty</th></tr></thead><tbody>${trows}</tbody></table></div></div></div>`;
+            html += `<div class="pc" data-picker="${esc(d.picker)}" data-staff-id="${esc(sid)}"><div class="pc-head" onclick="this.parentElement.classList.toggle('open')"><div class="pc-av" style="background:${COLORS[idx % COLORS.length]}22;color:${COLORS[idx % COLORS.length]}">${esc(d.picker.slice(0, 2).toUpperCase())}</div><div class="pc-info"><div class="pc-name">${esc(sid ? sid + " | " : "")}${esc(d.picker)}</div><div class="pc-meta">${d.zone && d.zone !== "-" ? esc(d.zone) + " · " : ""}${d.zoneGroup ? esc(d.zoneGroup) + " · " : ""}${d.soList.length.toLocaleString("id-ID")} SO baru · ${d.newQty.toLocaleString("id-ID")} qty · target ${cardTarget.toLocaleString("id-ID")}</div></div><div class="pc-right"><div style="text-align:right"><div class="pc-qty">${d.totalQty.toLocaleString("id-ID")} Qty</div><div class="pc-pct" style="color:${barColor};font-weight:600">${pctRaw}% dari target zone</div></div><div class="chevron">▼</div></div></div><div class="pc-bar"><div class="bar-bg"><div class="bar-fg" style="width:${pct}%;background:${barColor}"></div></div><div class="bar-lbl">(Beban: ${d.initialQty.toLocaleString("id-ID")} | Baru: +${d.newQty.toLocaleString("id-ID")})</div></div><div class="pc-detail"><div style="padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--bg3)"><div style="display:flex;gap:5px;flex-wrap:wrap">${zChips || '<span class="mono" style="color:var(--text3)">No zone</span>'}</div><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="copy-btn" onclick="copyAssignedPicker('so',this,event)">📋 Copy SO</button><button class="copy-btn" onclick="copyAssignedPicker('upload',this,event)">📋 Copy WMS</button><button class="copy-btn" onclick="downloadAssignedPickerCSV(this,event)">📥 CSV</button></div></div><div style="overflow:auto;max-height:420px"><table><thead><tr><th>SO Number</th><th>Destination</th><th>Zone</th><th>Wave</th><th>Type</th><th style="text-align:right">Qty</th></tr></thead><tbody>${trows}</tbody></table></div></div></div>`;
           });
           html += `</div>`;
           container.innerHTML = html;
