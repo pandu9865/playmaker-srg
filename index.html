@@ -2785,26 +2785,33 @@
         ];
         let WAVE_ORDER_SRG = {};
         const WAVE_MAP = {
-          BDC: "WAVE 1",
-          BGS: "WAVE 1",
-          KLD: "WAVE 1",
-          TGX: "WAVE 1",
-          ASA: "WAVE 1",
-          SRP: "WAVE 1",
-          CSA: "WAVE 2",
-          BSX: "WAVE 2",
-          PKC: "WAVE 2",
-          PBT: "WAVE 2",
-          SWL: "WAVE 2",
-          BS9: "WAVE 2",
-          JBG: "WAVE 2",
-          GPL: "WAVE 3",
-          TDN: "WAVE 3",
-          PPL: "WAVE 3",
-          APR: "WAVE 3",
-          FTW: "WAVE 3",
-          CLN: "WAVE 3",
-          CPT: "WAVE 3",
+          // WAVE 1 split
+          BDC: "WAVE 1 A",
+          BGS: "WAVE 1 A",
+          KLD: "WAVE 1 A",
+          TGX: "WAVE 1 B",
+          ASA: "WAVE 1 B",
+          SRP: "WAVE 1 B",
+
+          // WAVE 2 split
+          CSA: "WAVE 2 B",
+          BSX: "WAVE 2 B",
+          PKC: "WAVE 2 B",
+          PBT: "WAVE 2 B",
+          SWL: "WAVE 2 B",
+          BS9: "WAVE 2 B",
+          JBG: "WAVE 2 B",
+
+          // WAVE 3 split
+          GPL: "WAVE 3 A",
+          TDN: "WAVE 3 A",
+          PPL: "WAVE 3 A",
+          APR: "WAVE 3 B",
+          FTW: "WAVE 3 B",
+          CLN: "WAVE 3 B",
+          CPT: "WAVE 3 B",
+
+          // WAVE 4+
           PIN: "WAVE 4",
           LBB: "WAVE 4",
           PSG: "WAVE 4",
@@ -2815,22 +2822,22 @@
           JTI: "WAVE 5",
           CNR: "WAVE 6",
           MRG: "WAVE 6",
-          CT2: "WAVE 6",
-          TAP: "WAVE 6",
-          KPM: "WAVE 6",
-          PLB: "WAVE 6",
-          MTG: "WAVE 7",
-          MGR: "WAVE 7",
-          CWG: "WAVE 7",
-          KJT: "WAVE 7",
-          GWB: "WAVE 7",
-          SLP: "WAVE 8",
-          JLB: "WAVE 8",
-          PPN: "WAVE 8",
-          SMN: "WAVE 8",
-          KGS: "WAVE 9",
-          MRY: "WAVE 9",
-          RDS: "WAVE 9",
+          CT2: "WAVE 7",
+          TAP: "WAVE 7",
+          KPM: "WAVE 7",
+          PLB: "WAVE 7",
+          MTG: "WAVE 8",
+          MGR: "WAVE 8",
+          CWG: "WAVE 9",
+          KJT: "WAVE 9",
+          GWB: "WAVE 9",
+          SLP: "WAVE 10",
+          JLB: "WAVE 10",
+          PPN: "WAVE 10",
+          SMN: "WAVE 10",
+          KGS: "WAVE 11",
+          MRY: "WAVE 11",
+          RDS: "WAVE 11",
         };
         const TYPE_MAP_SRG = {
           KLD: "Kepala",
@@ -2937,8 +2944,15 @@
           return esc(s);
         }
         function waveRank(w) {
-          const n = Number(String(w || "").match(/\d+/)?.[0] || 999);
-          return Number.isFinite(n) ? n : 999;
+          const s = String(w || "").trim().toUpperCase();
+          const m = s.match(/^WAVE\s+(\d+)(?:\s+([A-Z]))?$/);
+          if (!m) return 999999;
+
+          const n = Number(m[1]);
+          const suffix = m[2] || "";
+          const suffixRank = suffix ? suffix.charCodeAt(0) - 64 : 0;
+
+          return n * 10 + suffixRank;
         }
         function sortWaves(a, b) {
           const na = waveRank(a),
@@ -3020,8 +3034,15 @@
           );
         }
         function waveShortLabel(w) {
-          const n = String(w || "").match(/\d+/)?.[0];
-          return n ? "W" + n : String(w || "-");
+          const s = String(w || "").trim().toUpperCase();
+
+          // WAVE 1 A -> W1 A
+          // WAVE 1 B -> W1 B
+          // WAVE 10  -> W10
+          const m = s.match(/^WAVE\s+(\d+)(?:\s+([A-Z]))?$/);
+          if (m) return "W" + m[1] + (m[2] ? " " + m[2] : "");
+
+          return s.replace(/^WAVE\s+/i, "W") || "-";
         }
         function waveBadge(w) {
           const c = getWaveColor(w);
