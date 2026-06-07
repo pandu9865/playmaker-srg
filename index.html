@@ -5207,6 +5207,53 @@
           }, 3000);
         }
 
+        function getCsvWaveKey(row) {
+          return (
+            String(
+              (row.so && (row.so.WAVE || row.so.wave || row.so.Wave)) ||
+                row.wave ||
+                row.WAVE ||
+                "NO WAVE",
+            ).trim() || "NO WAVE"
+          );
+        }
+
+        function getCsvTypeKey(row) {
+          const raw =
+            String(
+              (row.so &&
+                (row.so.type || row.so.TYPE || row.so.Type || row.so.local_type)) ||
+                row.type ||
+                row.TYPE ||
+                row.local_type ||
+                "NO TYPE",
+            ).trim() || "NO TYPE";
+
+          const key = raw.toUpperCase().replace(/\s+/g, " ").trim();
+
+          if (key.includes("KEPALA")) return "Kepala";
+          if (key.includes("BADAN")) return "Badan";
+          if (key.includes("EKOR")) return "Ekor";
+
+          return raw;
+        }
+
+        function safeFilePart(v) {
+          return String(v || "unknown")
+            .toLowerCase()
+            .replace(/\s+/g, "_")
+            .replace(/[^a-z0-9_]+/g, "")
+            .replace(/^_+|_+$/g, "") || "unknown";
+        }
+
+        function typeOrderNum(t) {
+          const key = String(t || "").toUpperCase();
+          if (key.includes("KEPALA")) return 1;
+          if (key.includes("BADAN")) return 2;
+          if (key.includes("EKOR")) return 3;
+          return 9;
+        }
+
         function downloadCSV() {
           const rows = buildBackendAssignedRows();
 
@@ -5215,16 +5262,15 @@
             return;
           }
 
-          const byWave = {};
+          const grouped = {};
 
           rows.forEach((r) => {
-            const wave =
-              String(
-                (r.so && (r.so.WAVE || r.so.wave || r.so.Wave)) || "NO WAVE",
-              ).trim() || "NO WAVE";
+            const wave = getCsvWaveKey(r);
+            const type = getCsvTypeKey(r);
+            const key = `${wave}|||${type}`;
 
-            if (!byWave[wave]) byWave[wave] = [];
-            byWave[wave].push(r);
+            if (!grouped[key]) grouped[key] = { wave, type, rows: [] };
+            grouped[key].rows.push(r);
           });
 
           const waveOrderNum = (w) => {
@@ -5232,25 +5278,25 @@
             return m ? Number(m[0]) : 999;
           };
 
-          const waves = Object.keys(byWave).sort(
-            (a, b) => waveOrderNum(a) - waveOrderNum(b),
-          );
+          const groups = Object.values(grouped).sort((a, b) => {
+            const wd = waveOrderNum(a.wave) - waveOrderNum(b.wave);
+            if (wd !== 0) return wd;
+            return typeOrderNum(a.type) - typeOrderNum(b.type);
+          });
 
-          waves.forEach((wave) => {
-            const csvText = buildWmsCsvText(byWave[wave]);
-            const safeWave = wave
-              .toLowerCase()
-              .replace(/\s+/g, "_")
-              .replace(/[^a-z0-9_]+/g, "");
+          groups.forEach((g) => {
+            const csvText = buildWmsCsvText(g.rows);
+            const safeWave = safeFilePart(g.wave);
+            const safeType = safeFilePart(g.type);
 
             downloadBlobFile(
               csvText,
-              `wms_srg_${safeWave}_${new Date().toISOString().slice(0, 10)}.csv`,
+              `wms_srg_${safeWave}_${safeType}_${new Date().toISOString().slice(0, 10)}.csv`,
             );
           });
 
           addLog(
-            `CSV backend assigned downloaded: ${waves.length} file · ${rows.length} SO`,
+            `CSV backend assigned downloaded: ${groups.length} file · ${rows.length} SO · split by wave & type`,
             "ok",
           );
         }
